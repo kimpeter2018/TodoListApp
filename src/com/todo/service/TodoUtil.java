@@ -31,7 +31,7 @@ public class TodoUtil {
 		System.out.print("내용을 입력하세요 > ");
 		desc = sc.nextLine().trim();
 		
-		TodoItem t = new TodoItem(title, desc);
+		TodoItem t = new TodoItem(title, desc, null);
 		list.addItem(t);
 		System.out.println("새 항목이 성공적으로 추가 되었습니다!");
 	}
@@ -84,7 +84,7 @@ public class TodoUtil {
 		for (TodoItem item : l.getList()) {
 			if (item.getTitle().equals(title)) {
 				l.deleteItem(item);
-				TodoItem t = new TodoItem(new_title, new_description);
+				TodoItem t = new TodoItem(new_title, new_description, null);
 				l.addItem(t);
 				System.out.println("항목이 성공적으로 수정되었습니다!");
 			}
@@ -115,32 +115,28 @@ public class TodoUtil {
 			e.printStackTrace();
 		}
 	}
-}
 
-//	public static void loadList(TodoList l, String filename) {
-//		try {
-//			BufferedReader br = new BufferedReader(new FileReader("output2.txt"));
-//			String oneline;
-//			while((oneline = br.readLine()) !=null) {
-//				StringTokenizer st = new StringTokenizer(oneline, "-");
-//				int no = Integer.parseInt(st.nextToken());
-//				String name = st.nextToken();
-//				int age = Integer.parseInt(st.nextToken());
-//				
-//				Student s = new Student(no, name, age);
-//				System.out.println(s.toString());
-//			}
-//			br.close();
-//			System.out.println("학생 정보 로딩 완료 !!! ");
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (NumberFormatException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//}
-//	}
-//}
+	public static void loadList(TodoList l, String filename) {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filename));
+			String oneline;
+			while((oneline = br.readLine()) !=null) {
+				StringTokenizer st = new StringTokenizer(oneline, "##");
+				String title = st.nextToken();
+				String desc = st.nextToken();
+				String date = st.nextToken();
+				TodoItem t = new TodoItem(title, desc, date);
+				l.addItem(t);
+			}
+			br.close();
+			
+			System.out.println("정보 로딩 완료 !!! ");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+}
+	}
+}

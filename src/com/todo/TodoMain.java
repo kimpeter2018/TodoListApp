@@ -14,7 +14,7 @@ public class TodoMain {
 		TodoList l = new TodoList();
 		boolean isList = false;
 		boolean quit = false;
-//		TodoUtil.loadList(l, "todolist.txt");
+		TodoUtil.loadList(l, "todolist.txt");
 		Menu.displaymenu();
 		do {
 			Menu.prompt();
@@ -26,27 +26,27 @@ public class TodoMain {
 				TodoUtil.createItem(l);
 				break;
 			
-			case "del":
+			case "del", "2":
 				TodoUtil.deleteItem(l);
 				break;
 				
-			case "edit":
+			case "edit", "3":
 				TodoUtil.updateItem(l);
 				break;
 				
-			case "ls":
+			case "ls", "4":
 				TodoUtil.listAll(l);
 				break;
 
 			case "ls_name_asc",
-				 "asc":
+				 "asc", "5":
 				l.sortByName();
 				System.out.println("리스트가 제목순으로 정렬되었습니다.");
 				isList = true;
 				break;
 
 			case "ls_name_desc",
-				 "desc":
+				 "desc", "6":
 				l.sortByName();
 				l.reverseList();
 				System.out.println("리스트가 제목역순으로 정렬되었습니다.");
@@ -54,17 +54,17 @@ public class TodoMain {
 				break;
 				
 			case "ls_date",
-				 "date":
+				 "date", "7":
 				l.sortByDate();
 				System.out.println("리스트가 날짜순으로 정렬되었습니다.");
 				isList = true;
 				break;
 				
-			case "help":
+			case "help", "0":
 				Menu.displaymenu();
 				break;
 
-			case "exit":
+			case "exit", "8":
 				quit = true;
 				break;
 
