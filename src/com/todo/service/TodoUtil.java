@@ -21,8 +21,7 @@ public class TodoUtil {
 		System.out.print("[항목 추가]\n"
 				+ "제목을 입력하세요 > ");
 		
-		title = sc.next();
-		sc.nextLine();
+		title = sc.nextLine();
 		if (list.isDuplicate(title)) {
 			System.out.print(title + "이 이미 존재합니다!");
 			return;
@@ -65,22 +64,22 @@ public class TodoUtil {
 		
 		System.out.print("[항목 수정]\n"
 				+ "수정할 항목의 제목을 입력하세요 > ");
-		String title = sc.next().trim();
+		String title = sc.next();
 		
 		if (!l.isDuplicate(title)) {
 			System.out.println("존재하지 않는 제목입니다!");
 			return;
 		}
+		sc.nextLine();
 
 		System.out.print("새 제목 > ");
-		String new_title = sc.next().trim();
+		String new_title = sc.nextLine();
 		if (l.isDuplicate(new_title)) {
-			System.out.println(new_title + "이 이미 존재합니다!");
+			System.out.print(new_title + "이 이미 존재합니다!");
 			return;
 		}
-		sc.nextLine();
 		System.out.print("새 내용 > ");
-		String new_description = sc.next().trim();
+		String new_description = sc.nextLine().trim();
 		for (TodoItem item : l.getList()) {
 			if (item.getTitle().equals(title)) {
 				l.deleteItem(item);
