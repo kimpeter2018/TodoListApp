@@ -23,14 +23,18 @@ public class TodoUtil {
 		
 		title = sc.nextLine();
 		if (list.isDuplicate(title)) {
-			System.out.print(title + "이 이미 존재합니다!");
+			System.out.print(title + "(이)가 이미 존재합니다!");
 			return;
 		}
 		
 		System.out.print("내용을 입력하세요 > ");
 		desc = sc.nextLine().trim();
+		System.out.print("카테고리를 입력하세요 > ");
+		String category = sc.nextLine().trim();
+		System.out.print("마감일자를 입력하세요 > ");
+		String due_date = sc.nextLine().trim();
 		
-		TodoItem t = new TodoItem(title, desc, null);
+		TodoItem t = new TodoItem(title, desc, null, category, due_date);
 		list.addItem(t);
 		System.out.println("새 항목이 성공적으로 추가 되었습니다!");
 	}
@@ -40,21 +44,17 @@ public class TodoUtil {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("[항목 삭제]\n"
-				+ "제거할 항목의 제목을 입력하세요 > ");
-		String title = sc.next();
+				+ "제거할 항목의 번호를 입력하세요 > ");
 		
-		if (!l.isDuplicate(title)) {
-			System.out.println("title doesn't exist");
+		int select = sc.nextInt();
+		
+		if (select > l.getList().size()) {
+			System.out.println("해당 번호는 존재하지 않습니다.");
 			return;
 		}
-		
-		for (TodoItem item : l.getList()) {
-			if (title.equals(item.getTitle())) {
-				l.deleteItem(item);
-				System.out.println(title + "이 성공적으로 삭제되었습니다!");
-				break;
-			}
-		}
+
+		l.deleteItem(l.getList().get(select-1));
+		System.out.println("성공적으로 삭제되었습니다!");
 	}
 
 
@@ -63,11 +63,11 @@ public class TodoUtil {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("[항목 수정]\n"
-				+ "수정할 항목의 제목을 입력하세요 > ");
-		String title = sc.next();
+				+ "수정할 항목의 번호를 입력하세요 > ");
+		int select = sc.nextInt();
 		
-		if (!l.isDuplicate(title)) {
-			System.out.println("존재하지 않는 제목입니다!");
+		if (select > l.getList().size()) {
+			System.out.println("해당 번호는 존재하지 않습니다.");
 			return;
 		}
 		sc.nextLine();
@@ -75,29 +75,46 @@ public class TodoUtil {
 		System.out.print("새 제목 > ");
 		String new_title = sc.nextLine();
 		if (l.isDuplicate(new_title)) {
-			System.out.print(new_title + "이 이미 존재합니다!");
+			System.out.print(new_title + "(이)가 이미 존재합니다!");
 			return;
 		}
+		System.out.print("새 카테고리 > ");
+		String new_category = sc.nextLine().trim();
 		System.out.print("새 내용 > ");
 		String new_description = sc.nextLine().trim();
-		for (TodoItem item : l.getList()) {
-			if (item.getTitle().equals(title)) {
-				l.deleteItem(item);
-				TodoItem t = new TodoItem(new_title, new_description, null);
-				l.addItem(t);
-				System.out.println("항목이 성공적으로 수정되었습니다!");
-			}
-		}
-
+		System.out.print("새 마감일자 > ");
+		String new_due_date = sc.nextLine().trim();
+		
+		
+		l.deleteItem(l.getList().get(select-1));
+		TodoItem t = new TodoItem(new_title, new_description, null, new_category, new_due_date);
+		l.addItem(t);
+		System.out.println("항목이 성공적으로 수정되었습니다!");
 	}
+
 
 	public static void listAll(TodoList l) {
-		System.out.println("[전체 목록]");
+		System.out.println("[전체 목록, 총 " + l.getList().size() +"개]");
 		for (TodoItem item : l.getList()) {
-			System.out.println(item.toString());
+			int count = l.getList().indexOf(item)+1;
+			System.out.println(count  + ". " + item.toString());
 		}
 	}
 
+	public static void find(TodoList l, String key) {
+		boolean found = false;
+		for (TodoItem item : l.getList()) {
+				if(item.getDesc().contains(key) || item.getTitle().contains(key)) {
+					int count = l.getList().indexOf(item)+1;
+					System.out.println(count  + ". " + item.toString());
+					found = true;
+			}
+		}
+		if(!found) {
+			System.out.println("해당 키워드가 존재 하지 않습니다!");
+		}
+	}
+	
 	public static void saveList(TodoList l, String filename) {
 		try {
 			Writer w = new FileWriter(filename);
@@ -106,7 +123,7 @@ public class TodoUtil {
 			}
 			w.close();
 			
-			System.out .println("정보 저장 성공 !!");
+			System.out.println("정보 저장 성공 !!");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -124,7 +141,9 @@ public class TodoUtil {
 				String title = st.nextToken();
 				String desc = st.nextToken();
 				String date = st.nextToken();
-				TodoItem t = new TodoItem(title, desc, date);
+				String category = st.nextToken();
+				String due_date = st.nextToken();
+				TodoItem t = new TodoItem(title, desc, date, category, due_date);
 				l.addItem(t);
 			}
 			br.close();

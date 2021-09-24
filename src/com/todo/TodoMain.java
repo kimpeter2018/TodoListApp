@@ -61,6 +61,11 @@ public class TodoMain {
 				System.out.println("리스트가 날짜순으로 정렬되었습니다.");
 				isList = true;
 				break;
+			case "find":
+				String key = sc.next().trim();
+				TodoUtil.find(l, key);
+				break;
+			
 				
 			case "help", "0":
 				Menu.displaymenu();
