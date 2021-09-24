@@ -11,7 +11,10 @@ public class Menu {
         System.out.println("5. 제목순 정렬 ( ls_name_asc or asc)");
         System.out.println("6. 제목역순 정렬 ( ls_name_desc or desc)");
         System.out.println("7. 날짜순 정렬 ( ls_date or date)");
-        System.out.println("8. 종료 (exit)");
+        System.out.println("8. 날짜역순 정렬 ( ls_date_desc or d_desc)");
+        System.out.println("9. 종료 (exit)\n");
+        System.out.println("키워드로 항목 검색 (find 키워드)");
+        System.out.println("키워드로 카테고리 검색 (find_cate 카테고리)");
     }
     
     public static void prompt() {

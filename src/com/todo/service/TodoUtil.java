@@ -115,6 +115,20 @@ public class TodoUtil {
 		}
 	}
 	
+	public static void find_cate(TodoList l, String key) {
+		boolean found = false;
+		for (TodoItem item : l.getList()) {
+				if(item.getCategory().contains(key)) {
+					int count = l.getList().indexOf(item)+1;
+					System.out.println(count  + ". " + item.toString());
+					found = true;
+			}
+		}
+		if(!found) {
+			System.out.println("해당 카테고리가 존재 하지 않습니다!");
+		}
+	}
+	
 	public static void saveList(TodoList l, String filename) {
 		try {
 			Writer w = new FileWriter(filename);
