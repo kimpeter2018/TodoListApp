@@ -100,6 +100,17 @@ public class TodoUtil {
 			System.out.println(count  + ". " + item.toString());
 		}
 	}
+	
+	public static void listCategory(TodoList l) {
+		ArrayList<String> category = new ArrayList<String>();
+		for(TodoItem item : l.getList()) {
+			category.add(item.getCategory());
+			if(l.getList().indexOf(item) != l.getList().size() - 1)
+				System.out.print(item.getCategory() + " / ");
+			else System.out.print(item.getCategory());
+		}
+		System.out.println("\n총 " +category.size() + "개의 카테고리가 등록되어 있습니다");
+	}
 
 	public static void find(TodoList l, String key) {
 		boolean found = false;
@@ -118,7 +129,7 @@ public class TodoUtil {
 	public static void find_cate(TodoList l, String key) {
 		boolean found = false;
 		for (TodoItem item : l.getList()) {
-				if(item.getCategory().contains(key)) {
+				if(item.getCategory().contentEquals(key)) {
 					int count = l.getList().indexOf(item)+1;
 					System.out.println(count  + ". " + item.toString());
 					found = true;

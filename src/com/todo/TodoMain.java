@@ -61,7 +61,15 @@ public class TodoMain {
 				System.out.println("리스트가 날짜순으로 정렬되었습니다.");
 				isList = true;
 				break;
-				
+			case "ls_date_desc",
+			 	 "d_desc", "8":
+			 	l.sortByDateDesc();
+				System.out.println("리스트가 날짜역순으로 정렬되었습니다.");
+				isList = true;
+				break;	
+			case "ls_cate" , "9":
+				TodoUtil.listCategory(l);
+				break;				
 			case "find":
 				String key = sc.next().trim();
 				TodoUtil.find(l, key);
@@ -75,7 +83,7 @@ public class TodoMain {
 				Menu.displaymenu();
 				break;
 
-			case "exit", "9":
+			case "exit", "10", "q":
 				quit = true;
 				break;
 
