@@ -67,7 +67,7 @@ public class TodoMain {
 				System.out.println("리스트가 날짜역순으로 정렬되었습니다.");
 				isList = true;
 				break;	
-			case "ls_cate" , "9":
+			case "ls_cate" , "cate", "9":
 				TodoUtil.listCategory(l);
 				break;				
 			case "find":
