@@ -35,7 +35,7 @@ public class TodoList {
 		Collections.sort(list, new TodoSortByName());
 
 	}
-	
+
 	public void reverseList() {
 		Collections.reverse(list);
 	}
@@ -43,6 +43,7 @@ public class TodoList {
 	public void sortByDate() {
 		Collections.sort(list, new TodoSortByDate());
 	}
+
 	public void sortByDateDesc() {
 		Collections.sort(list, new TodoSortByDateDesc());
 	}
@@ -53,7 +54,8 @@ public class TodoList {
 
 	public Boolean isDuplicate(String title) {
 		for (TodoItem item : list) {
-			if (title.equals(item.getTitle())) return true;
+			if (title.equals(item.getTitle()))
+				return true;
 		}
 		return false;
 	}
